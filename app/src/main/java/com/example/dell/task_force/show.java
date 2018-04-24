@@ -77,11 +77,13 @@ public class show extends AppCompatActivity {
                         JSONObject ico =i.getJSONObject(0);
                         int iii= ico.getInt("id");
                          id=iii;
+                  final String climate=ico.getString("main");
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    " " +id,
+                                    " " +climate,
                                     Toast.LENGTH_LONG)
                                     .show();
                         }
