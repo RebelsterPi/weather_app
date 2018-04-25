@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -29,6 +32,7 @@ public class show extends AppCompatActivity {
      static int i;
     static int j=0;
     static int id=200;
+    static String des="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,8 @@ public class show extends AppCompatActivity {
                         int iii= ico.getInt("id");
                          id=iii;
                   final String climate=ico.getString("main");
-
+                  String descrip=ico.getString("description");
+                  des=descrip;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -323,14 +328,12 @@ public class show extends AppCompatActivity {
         protected void onPostExecute(Double result) {
 
             super.onPostExecute(result);
-            // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
             final double r=result;
             final double c=(result-273.15);
             final TextView textView = findViewById(R.id.t1);
-           // final TextView textView3 = findViewById(R.id.tv);
             final TextView textView2 = findViewById(R.id.t2);
             final Switch cswitch=findViewById(R.id.s1);
 
@@ -340,6 +343,13 @@ public class show extends AppCompatActivity {
             Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
             txtGhost.setTypeface(tf);
            txtGhost.setText(idg(id));
+           txtGhost.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+
+                   Snackbar.make(view,des.toUpperCase(),Snackbar.LENGTH_LONG).setAction("Action",null).show();
+               }
+           });
            /* icm = new icon_mang();
             ((TextView)findViewById(R.id.ic)).setTypeface(icm.get_icons("icons/font/weathericons-regular-webfont.ttf",this));
             */
@@ -400,5 +410,10 @@ public class show extends AppCompatActivity {
 
 
         }
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent3 = new Intent(this,MainActivity.class);
+        startActivity(intent3);
     }
 }
