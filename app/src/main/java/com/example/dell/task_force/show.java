@@ -413,7 +413,13 @@ public class show extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        Intent intent3 = new Intent(this,MainActivity.class);
+        /*Intent intent3 = new Intent(this,MainActivity.class);
         startActivity(intent3);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);*/
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
 }
